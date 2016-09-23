@@ -109,6 +109,7 @@ do we need another one of these?
 
 <img class="plain" src="resources/images/contvsvm.png" style="width: 100%"></img>
 
+<footer style="text-align: left;"><small><small><a href="https://twitter.com/jonasrosland" target="_blank">©jonasrosland</a></small></small></footer>
 
 
 Note:
@@ -127,12 +128,14 @@ Less isolation
 
 ## Container - the analogy
 <img class="plain" src="resources/images/containerAnalogy.png" style="width: 100%"></img>
+<footer style="text-align: left;"><small><small><a href="https://twitter.com/jonasrosland" target="_blank">©jonasrosland</a></small></small></footer>
 
 
 --
 
 ## Container - the analogy
 <img class="plain" src="resources/images/techAnalogy.png" style="width: 100%"></img>
+<footer style="text-align: left;"><small><small><a href="https://twitter.com/jonasrosland" target="_blank">©jonasrosland</a></small></small></footer>
 
 
 --
@@ -181,10 +184,50 @@ The idea is that you don't have to configure your development environment, you d
 
 # 🤔 <!-- .element: class="fragment" -->
 
+Note:
+
+-- In docker you have the concept of images and containers, a container is something that is running or that run, and an image is a more persistent thing --
+
+
+docker ps 
+-- to show running containers --
+
+docker ps -a 
+
+-- to show all of the containers, even the ones that are stopped --
+
+-- so, in this example we are running the ubuntu image, which defaults to the latest version, in a new container named testContainer -- 
+
+docker run -t -i --name testContainer ubuntu /bin/bash
+
+Ctrl + p Ctrl + q
+
+docker images
+
+docker commit -m "Initial commit" useless/test
+
+
+docker diff testContainer 
+
+docker attach testContainer
+
+echo "test" > confFile
+
+<Detach>
+
+docker diff testContainer
+
+docker commit -m "Configured container" useless/test
+
+docker history useless/test
+
+
 --
 
 ## Container Solution
 <img class="plain" src="resources/images/pushAndPullTransparent.png" ></img>
+
+<footer style="text-align: left;"><small><small><a href="https://twitter.com/jonasrosland" target="_blank">©jonasrosland</a></small></small></footer>
 #### Push and Pull <!-- .element: class="fragment" -->
 
 --
@@ -236,6 +279,98 @@ CMD ["rails", "server", "-b", "0.0.0.0"]
 
 <!-- .slide: data-background-image="resources/images/finalSolution.png" data-background-size="90%" -->
 
+--
+
+#OR
+
+ * Use Dockerfile <!-- .element: class="fragment" -->
+ * Linking and orchestrating several containers can be tricky <!-- .element: class="fragment" -->
+ 
+ 
+
+</script>
+</section>
+
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
+<script type="text/template">
+#The mess
+
+
+<pre>
+    <code data-trim data-noescape>
+docker run -p 25:25 -p 127.0.0.1:2222:22 -d -name postfix linux/postfix:production /usr/bin/supervisord --nodaemon
+
+docker run -p 587:587 -p 25:25 -p 127.0.0.1:2222:22 -d -name postfix-prod linux/postfix:productionv3 /usr/bin/supervisord --nodaemon
+
+
+
+docker run -p 8080:8080 -d -name jetty jettyAndCargo:latest java -Djetty.home=/opt/jetty -jar /opt/jetty/start.jar
+ </code>
+</pre>
+
+ * Docker compose to the rescue!!
+
+
+</script>
+</section>
+
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
+<script type="text/template">
+# & A bit beyond
+## Compose example
+
+<pre>
+    <code data-trim data-noescape>
+	version: '2'
+services:
+  web:
+    build: .
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis
+  db:
+    image: postgres
+    
+ </code>
+</pre>
+
+
+ 
+ 
+ 
+  
+
+</script>
+</section>
+
+<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
+<script type="text/template">
+# A bit beyond
+
+## Orchestrating several servers
+
+ * Docker Swarm
+ * Kubernetes
+ * Core OS alternative
+ * Mix of Ansible + Docker compose
+
+
+--
+
+ 
+# A bit beyond
+
+## PaaS / Hosting / Tools to watch out for
+
+ * AWS - Container solution - vendor lock-in configuration
+ * Google PaaS - Kubernete (OS) support (AFAIK) - no vendor lock-in (Kubernetes is O.S.)
+ * [Dokku](https://github.com/dokku)
+ * [Docker registry](https://hub.docker.com/_/registry/)
+ * [Docker registry enterprise](https://www.docker.com/docker-trusted-registry)
+ * [Other registries](https://hub.docker.com/search/?isAutomated=0&isOfficial=0&page=1&pullCount=0&q=registry&starCount=0)
+ * Others tools and services.. (do your research)
 
 </script>
 </section>

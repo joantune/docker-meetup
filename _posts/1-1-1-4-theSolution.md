@@ -15,10 +15,50 @@
 
 # 🤔 {% fragment %}
 
+Note:
+
+-- In docker you have the concept of images and containers, a container is something that is running or that run, and an image is a more persistent thing --
+
+
+docker ps 
+-- to show running containers --
+
+docker ps -a 
+
+-- to show all of the containers, even the ones that are stopped --
+
+-- so, in this example we are running the ubuntu image, which defaults to the latest version, in a new container named testContainer -- 
+
+docker run -t -i --name testContainer ubuntu /bin/bash
+
+Ctrl + p Ctrl + q
+
+docker images
+
+docker commit -m "Initial commit" useless/test
+
+
+docker diff testContainer 
+
+docker attach testContainer
+
+echo "test" > confFile
+
+<Detach>
+
+docker diff testContainer
+
+docker commit -m "Configured container" useless/test
+
+docker history useless/test
+
+
 --
 
 ## Container Solution
 <img class="plain" src="resources/images/pushAndPullTransparent.png" ></img>
+
+<footer style="text-align: left;"><small><small><a href="https://twitter.com/jonasrosland" target="_blank">©jonasrosland</a></small></small></footer>
 #### Push and Pull {% fragment %}
 
 --

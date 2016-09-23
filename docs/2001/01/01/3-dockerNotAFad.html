@@ -23,6 +23,7 @@ do we need another one of these?
 
 <img class="plain" src="resources/images/contvsvm.png" style="width: 100%"></img>
 
+<footer style="text-align: left;"><small><small><a href="https://twitter.com/jonasrosland" target="_blank">©jonasrosland</a></small></small></footer>
 
 
 Note:
@@ -41,12 +42,14 @@ Less isolation
 
 ## Container - the analogy
 <img class="plain" src="resources/images/containerAnalogy.png" style="width: 100%"></img>
+<footer style="text-align: left;"><small><small><a href="https://twitter.com/jonasrosland" target="_blank">©jonasrosland</a></small></small></footer>
 
 
 --
 
 ## Container - the analogy
 <img class="plain" src="resources/images/techAnalogy.png" style="width: 100%"></img>
+<footer style="text-align: left;"><small><small><a href="https://twitter.com/jonasrosland" target="_blank">©jonasrosland</a></small></small></footer>
 
 
 --
